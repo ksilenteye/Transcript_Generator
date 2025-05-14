@@ -1,0 +1,14 @@
+import assemblyai as aai
+
+aai.settings.api_key = "YOUR_API_KEY"  # Replace with your real API key
+audio_file = "bus.mp4"
+
+config = aai.TranscriptionConfig(speech_model=aai.SpeechModel.best)
+
+try:
+    transcript = aai.Transcriber(config=config).transcribe(audio_file)
+    if transcript.status == "error":
+        raise RuntimeError(f"Transcription failed: {transcript.error}")
+    print(transcript.text)
+except Exception as e:
+    print(f"Something went wrong: {e}")
